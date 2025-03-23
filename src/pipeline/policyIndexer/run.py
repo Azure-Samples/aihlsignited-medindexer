@@ -46,7 +46,7 @@ from azure.search.documents.indexes.models import (
 from azure.storage.blob import BlobServiceClient
 from dotenv import load_dotenv
 
-from utils.ml_logging import get_logger
+from src.utils.ml_logging import get_logger
 
 logger = get_logger()
 
@@ -163,7 +163,6 @@ class PolicyIndexingPipeline:
                             os.path.relpath(file_path, local_path),
                         )
                         blob_client = container_client.get_blob_client(blob_path)
-
                         with open(file_path, "rb") as data:
                             blob_client.upload_blob(data, overwrite=True)
                         logger.info(f"Uploaded {file_path} to {blob_path}")

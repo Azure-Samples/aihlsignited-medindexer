@@ -1,0 +1,185 @@
+ocr-extraction-001:
+  description: >
+    Evaluation for search quality extraction on the aforementioned case. Evaluates text quality on the chunked
+    text from the OCR extraction. The evaluation uses the queries to search and extract the relevant information, and
+    test that information against expected OCR extraction results.
+  disclaimer: >
+    Evaluations are performed zero-shot without additional fine-tuning.
+  pipeline:
+    class: src.pipeline.policyIndexer.evaluator.PolicyIndexerEvaluator
+  evaluators:
+    - name: "SlidingFuzzyEvaluator"
+      class: src.evals.custom.sliding_fuzzy_evaluator:SlidingFuzzyEvaluator
+  cases:
+    - ocr-extraction-001.v0
+
+ocr-extraction-001.v0:
+  metrics: [SlidingFuzzyEvaluator]
+  evaluations:
+    - query: "Ankylosing Spondylitis"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 6 months if the patient meets BOTH of the following (i and ii):
+        i.	Patient is ≥ 18 years of age; AND
+        ii.	The medication is prescribed by or in consultation with a rheumatologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets BOTH of the following (i and ii):
+        i.	Patient has been established on therapy for at least 6 months; AND
+
+        Note: A patient who has received < 6 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	Patient meets at least ONE of the following (a or b):
+
+        a)	When assessed by at least one objective measure, patient experienced a beneficial clinical response from baseline (prior to initiating an adalimumab product); OR
+
+        Note: Examples of objective measures include Ankylosing Spondylitis Disease Activity Score (ASDAS), Ankylosing Spondylitis Quality of Life Scale (ASQoL), Bath Ankylosing Spondylitis Disease Activity Index (BASDAI), Bath Ankylosing Spondylitis Functional Index (BASFI), Bath Ankylosing Spondylitis Global Score (BAS-G), Bath Ankylosing Spondylitis Metrology Index (BASMI), Dougados Functional Index (DFI), Health Assessment Questionnaire for the Spondyloarthropathies (HAQ-S), and/or serum markers (e.g., C-reactive protein, erythrocyte sedimentation rate).
+
+        b)	Compared with baseline (prior to initiating an adalimumab product), patient experienced an improvement in at least one symptom, such as decreased pain or stiffness, or improvement in function or activities of daily living.
+    - query: "Crohn's Disease"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 6 months if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient is ≥ 6 years of age; AND
+        ii.	Patient meets ONE of the following (a, b, c, or d):
+            a)	Patient has tried or is currently taking corticosteroids, or corticosteroids are contraindicated in this patient; OR
+            b)	Patient has tried one other conventional systemic therapy for Crohn’s disease; OR
+            c)	Patient has enterocutaneous (perianal or abdominal) or rectovaginal fistulas; OR
+            d)	Patient had ileocolonic resection (to reduce the chance of Crohn’s disease recurrence); AND
+        iii.	The medication is prescribed by or in consultation with a gastroenterologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets BOTH of the following (i and ii):
+        i.	Patient has been established on therapy for at least 6 months; AND
+
+        Note: A patient who has received < 6 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	Patient meets at least ONE of the following (a or b):
+        a)	When assessed by at least one objective measure, patient experienced a beneficial clinical response from baseline (prior to initiating an adalimumab product); OR
+        b)	Compared with baseline (prior to initiating an adalimumab product), patient experienced an improvement in at least one symptom, such as decreased pain, fatigue, stool frequency, and/or blood in stool.
+    - query: "Juvenile Idiopathic Arthritis"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 6 months if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient is ≥ 2 years of age; AND
+        ii.	Patient meets ONE of the following (a, b, c, or d):
+            a)	Patient has tried one other systemic therapy for JIA; OR
+            b)	Patient will be starting on adalimumab concurrently with methotrexate, sulfasalazine, or leflunomide; OR
+            c)	Patient has an absolute contraindication to methotrexate, sulfasalazine, or leflunomide; OR
+            d)	Patient has aggressive disease, as determined by the prescriber; AND
+        iii.	The medication is prescribed by or in consultation with a rheumatologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets BOTH of the following (i and ii):
+        i.	Patient has been established on therapy for at least 6 months; AND
+
+        Note: A patient who has received < 6 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	Patient meets at least ONE of the following (a or b):
+        a)	When assessed by at least one objective measure, patient experienced a beneficial clinical response from baseline (prior to initiating an adalimumab product); OR
+        b)	Compared with baseline (prior to initiating an adalimumab product), patient experienced an improvement in at least one symptom, such as decreased joint pain, morning stiffness, or improved function.
+    - query: "Hidradenitis Suppurativa"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 3 months if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient is ≥ 12 years of age; AND
+        ii.	Patient has tried at least ONE other therapy (e.g., intralesional or oral corticosteroids, systemic antibiotics, or isotretinoin); AND
+        iii.	The medication is prescribed by or in consultation with a dermatologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient has been established on therapy for at least 3 months; AND
+
+        Note: A patient who has received < 3 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	When assessed by at least one objective measure, patient experienced a beneficial clinical response from baseline (prior to initiating an adalimumab product); AND
+        iii.	Compared with baseline (prior to initiating an adalimumab product), patient experienced an improvement in at least one symptom, such as decreased pain or drainage of lesions.
+    - query: "Plaque Psoriasis"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 3 months if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient is ≥ 18 years of age; AND
+        ii.	Patient meets ONE of the following (a or b):
+            a)	Patient has tried at least one traditional systemic agent for psoriasis for at least 3 months, unless intolerant; OR
+            b)	Patient has a contraindication to methotrexate, as determined by the prescriber; AND
+        iii.	The medication is prescribed by or in consultation with a dermatologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient has been established on therapy for at least 3 months; AND
+
+        Note: A patient who has received < 3 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	Patient experienced a beneficial clinical response, defined as improvement from baseline in at least one of the following: estimated body surface area affected, erythema, induration/thickness, and/or scale; AND
+        iii.	Compared with baseline (prior to receiving an adalimumab product), patient experienced an improvement in at least one symptom, such as decreased pain, itching, or burning.
+    - query: "Psoriatic Arthritis"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 6 months if the patient meets BOTH of the following (i and ii):
+        i.	Patient is ≥ 18 years of age; AND
+        ii.	The medication is prescribed by or in consultation with a rheumatologist or a dermatologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets BOTH of the following (i and ii):
+        i.	Patient has been established on therapy for at least 6 months; AND
+
+        Note: A patient who has received < 6 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	Patient meets at least ONE of the following (a or b):
+        a)	When assessed by at least one objective measure, patient experienced a beneficial clinical response from baseline (prior to initiating an adalimumab product); OR
+        b)	Compared with baseline (prior to initiating an adalimumab product), patient experienced an improvement in at least one symptom, such as less joint pain, morning stiffness, or improved function.
+    - query: "Rheumatoid Arthritis"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 6 months if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient is ≥ 18 years of age; AND
+        ii.	Patient has tried ONE conventional synthetic DMARD for at least 3 months; AND
+        iii.	The medication is prescribed by or in consultation with a rheumatologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets BOTH of the following (i and ii):
+        i.	Patient has been established on therapy for at least 6 months; AND
+
+        Note: A patient who has received < 6 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	Patient meets at least ONE of the following (a or b):
+        a)	Patient experienced a beneficial clinical response when assessed by at least one objective measure; OR
+        b)	Patient experienced an improvement in at least one symptom, such as decreased joint pain, morning stiffness, or fatigue.
+    - query: "Ulcerative Colitis"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 6 months if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient is ≥ 5 years of age; AND
+        ii.	Patient meets ONE of the following (a or b):
+            a)	Patient has tried one systemic therapy (e.g., corticosteroids, immunosuppressants); OR
+            b)	Patient meets BOTH of the following:
+               (1) Patient has pouchitis; AND
+               (2) Patient has tried an antibiotic, probiotic, corticosteroid enema, or mesalamine enema; AND
+        iii.	The medication is prescribed by or in consultation with a gastroenterologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets BOTH of the following (i and ii):
+        i.	Patient has been established on therapy for at least 6 months; AND
+
+        Note: A patient who has received < 6 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	Patient meets at least ONE of the following (a or b):
+        a)	When assessed by at least one objective measure, patient experienced a beneficial clinical response from baseline (prior to initiating an adalimumab product); OR
+        b)	Compared with baseline (prior to initiating an adalimumab product), patient experienced an improvement in at least one symptom, such as decreased pain, fatigue, stool frequency, and/or rectal bleeding.
+    - query: "Uveitis (including other posterior uveitides and panuveitis syndromes)"
+      ground_truth: >-
+        . Approve for the duration noted if the patient meets ONE of the following (A or B):
+
+        A)	Initial Therapy. Approve for 6 months if the patient meets ALL of the following (i, ii, and iii):
+        i.	Patient is ≥ 2 years of age; AND
+        ii.	Patient has tried ONE of the following therapies: periocular, intraocular, or systemic corticosteroids; immunosuppressives; AND
+        iii.	The medication is prescribed by or in consultation with an ophthalmologist.
+
+        B)	Patient is Currently Receiving an Adalimumab Product. Approve for 1 year if the patient meets BOTH of the following (i and ii):
+        i.	Patient has been established on therapy for at least 6 months; AND
+
+        Note: A patient who has received < 6 months of therapy or who is restarting therapy with an adalimumab product is reviewed under criterion A (Initial Therapy).
+
+        ii.	Patient meets at least one of the following (a or b):
+        a)	When assessed by at least one objective measure, patient experienced a beneficial clinical response from baseline (prior to initiating an adalimumab product); OR
+        b)	Compared with baseline (prior to initiating an adalimumab product), patient experienced an improvement in at least one symptom, such as decreased eye pain, redness, or blurred vision.

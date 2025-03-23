@@ -1,0 +1,56 @@
+ocr-extraction-002:
+  description: >
+    Evaluation for search quality extraction on the aforementioned case. Evaluates text quality on the chunked
+    text from the OCR extraction. The evaluation uses the queries to search and extract the relevant information, and
+    test that information against expected OCR extraction results.
+  disclaimer: >
+    Evaluations are performed zero-shot without additional fine-tuning.
+  pipeline:
+    class: src.pipeline.policyIndexer.evaluator.PolicyIndexerEvaluator
+  evaluators:
+    - name: "SlidingFuzzyEvaluator"
+      class: src.evals.custom.sliding_fuzzy_evaluator:SlidingFuzzyEvaluator
+  cases:
+    - ocr-extraction-002.v0
+
+ocr-extraction-002.v0:
+  metrics: [SlidingFuzzyEvaluator]
+  evaluations:
+    - query: "Dravet Syndrome Criteria"
+      ground_truth: >-
+        1.	Dravet Syndrome. Approve if the patient meets ONE of the following (A or B):
+        A)	Initial Therapy. Approve for 1 year if the patient meets the following (i, ii, and iii):
+           i.	Patient is ≥ 1 year of age; AND
+           ii.	Patient meets ONE of the following (a or b):
+               a)	Patient has tried or is concomitantly receiving at least two other antiseizure medications; OR
+                  Note: Examples include valproic acid, topiramate, clonazepam, levetiracetam, zonisamide.
+               b)	Patient has tried or is concomitantly receiving one of Fintepla, Diacomit or clobazam; AND
+           iii.	The medication is prescribed by or in consultation with a neurologist.
+        B)	Patient is Currently Receiving Epidiolex. Approve for 1 year if the patient is responding to therapy (e.g., reduced seizure severity, frequency, and/or duration) as determined by the prescriber.
+    - query: "Lennox-Gastaut Syndrome Criteria"
+      ground_truth: >-
+        2.	Lennox-Gastaut Syndrome. Approve if the patient meets ONE of the following (A or B):
+        A)	Initial Therapy. Approve for 1 year if the patient meets the following (i, ii, and iii):
+           i.	Patient is ≥ 1 year of age; AND
+           ii.	Patient has tried or is concomitantly receiving at least two other antiseizure medications; AND
+               Note: Examples include lamotrigine, topiramate, Banzel, felbamate, clobazam, valproic acid, levetiracetam, zonisamide, Fycompa, vigabatrin.
+           iii.	The medication is prescribed by or in consultation with a neurologist.
+        B)	Patient is Currently Receiving Epidiolex. Approve for 1 year if the patient is responding to therapy (e.g., reduced seizure severity, frequency, and/or duration) as determined by the prescriber.
+    - query: "Tuberous Sclerosis Complex Criteria"
+      ground_truth: >-
+        3.	Tuberous Sclerosis Complex. Approve if the patient meets ONE of the following (A or B):
+        A)	Initial Therapy. Approve for 1 year if the patient meets the following (i, ii, and iii):
+           i.	Patient is ≥ 1 year of age; AND
+           ii.	Patient has tried or is concomitantly receiving at least two other antiseizure medications; AND
+               Note: Examples include valproic acid, lamotrigine, topiramate, clonazepam, levetiracetam, zonisamide, Banzel, felbamate, clobazam, Fycompa, vigabatrin, everolimus.
+           iii.	The medication is prescribed by or in consultation with a neurologist.
+        B)	Patient is Currently Receiving Epidiolex. Approve for 1 year if the patient is responding to therapy (e.g., reduced seizure severity, frequency, and/or duration) as determined by the prescriber.
+    - query: "Treatment-Refractory Seizures/Epilepsy Criteria"
+      ground_truth: >-
+        4.	Treatment-Refractory Seizures/Epilepsy [specific rare conditions] (i.e., CDKL5 deficiency disorder; Dup15q, Aicardi, or Doose syndromes; febrile infection‐related epilepsy syndromes; Sturge‐Weber syndrome; lissencephaly; cortical malformation/dysplasia; and epilepsy with myoclonic absences). Approve if the patient meets ONE of the following (A or B):
+        A)	Initial Therapy. Approve for 1 year if the patient meets the following (i, ii, and iii):
+           i.	Patient is ≥ 1 year of age; AND
+           ii.	Patient has tried or is concomitantly receiving at least two other antiseizure medications; AND
+               Note: Examples include valproic acid, lamotrigine, topiramate, clonazepam, levetiracetam, zonisamide, Banzel, felbamate, clobazam, Fycompa, vigabatrin.
+           iii.	The medication is prescribed by or in consultation with a neurologist.
+        B)	Patient is Currently Receiving Epidiolex. Approve for 1 year if the patient is responding to therapy (e.g., reduced seizure severity, f
