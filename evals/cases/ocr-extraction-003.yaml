@@ -1,0 +1,78 @@
+ocr-extraction-003:
+  description: >
+    Evaluation for search quality extraction on the aforementioned case. Evaluates text quality on the chunked
+    text from the OCR extraction. The evaluation uses the queries to search and extract the relevant information, and
+    test that information against expected OCR extraction results.
+  disclaimer: >
+    Evaluations are performed zero-shot without additional fine-tuning.
+  pipeline:
+    class: src.pipeline.policyIndexer.evaluator.PolicyIndexerEvaluator
+  evaluators:
+    - name: "SlidingFuzzyEvaluator"
+      class: src.evals.custom.sliding_fuzzy_evaluator:SlidingFuzzyEvaluator
+  cases:
+    - ocr-extraction-003.v0
+
+ocr-extraction-003.v0:
+  metrics: [SlidingFuzzyEvaluator]
+  evaluations:
+    - query: "Policy Title"
+      ground_truth: >-
+        Clinical Policy: Blinatumomab (Blincyto)
+    - query: "Reference Number and Dates"
+      ground_truth: >-
+        Reference Number: ERX.SPA.241
+        Effective Date: 09.01.18
+        Last Review Date: 08.18
+    - query: "Description"
+      ground_truth: >-
+        Blinatumomab (Blincyto®) is a bispecific CD19-directed CD3 T-cell engager that binds to CD19 (expressed on cells of B-lineage origin) and CD3 (expressed on T cells).
+    - query: "FDA Approved Indications"
+      ground_truth: >-
+        Blincyto is indicated for:
+        • MRD-positive B-cell precursor ALL:
+          - Treatment of B-cell precursor acute lymphoblastic leukemia (ALL) in first or second complete remission with minimal residual disease (MRD) ≥ 0.1% in adults and children.
+          - This indication is approved under accelerated approval based on MRD response rate and hematological relapse-free survival. Continued approval may be contingent upon verification of clinical benefit.
+        • Relapsed or refractory B-cell precursor ALL:
+          - Treatment of relapsed or refractory B-cell precursor ALL in adults and children.
+    - query: "Initial Approval Criteria for Acute Lymphoblastic Leukemia"
+      ground_truth: >-
+        I. Initial Approval Criteria
+        A. Acute Lymphoblastic Leukemia (must meet all):
+        1. Diagnosis of B-cell precursor acute lymphoblastic leukemia (B-ALL);
+        2. Prescribed by or in consultation with an oncologist or hematologist;
+        3. Requested as treatment for:
+           a. B-ALL in remission but positive for minimal residual disease (MRD+); OR
+           b. Relapsed or refractory B-ALL, defined as:
+              i. Philadelphia chromosome-negative (Ph-) disease; OR
+              ii. Philadelphia chromosome-positive (Ph+) disease and intolerant or refractory to at least one second-generation or later tyrosine kinase inhibitor (TKI; e.g., Sprycel®, Tasigna®, Bosulif®, Iclusig®);
+              *Prior authorization may be required.
+        4. Dose does not exceed 28 mcg/day.
+        Approval duration: 6 months.
+    - query: "Continued Therapy Criteria for Acute Lymphoblastic Leukemia"
+      ground_truth: >-
+        II. Continued Therapy
+        A. Acute Lymphoblastic Leukemia (must meet all):
+        1. Currently receiving Blincyto via a health plan affiliated with Envolve Pharmacy Solutions or documentation confirms ongoing therapy for at least 30 days;
+        2. Member is responding positively to therapy;
+        3. If a dose increase is requested, the new dose must not exceed 28 mcg/day.
+        Approval duration: 12 months.
+    - query: "Diagnoses/Indications Not Authorized"
+      ground_truth: >-
+        III. Diagnoses/Indications for which coverage is NOT authorized:
+        A. Non-FDA approved indications not addressed in this policy, unless sufficient documentation of efficacy and safety is provided according to the off-label use policy (ERX.PA.01).
+    - query: "Dosage and Administration"
+      ground_truth: >-
+        V. Dosage and Administration (for B-ALL):
+        - For MRD-positive B-ALL:
+          • Treatment course: 1 induction cycle followed by up to 3 consolidation cycles.
+          • Patients ≥ 45 kg receive a fixed dose:
+            - Induction cycle 1: Days 1-28 at 28 mcg/day, followed by a 14-day treatment-free interval.
+            - Consolidation cycles 2-4: Days 1-28 at 28 mcg/day with a subsequent 14-day treatment-free interval.
+          • Patients < 45 kg are dosed based on body surface area (BSA) with lower starting doses and titration.
+        - For relapsed or refractory B-ALL:
+          • A modified induction and consolidation regimen is used with similar maximum dose limits of 28 mcg/day.
+    - query: "Important Reminder"
+      ground_truth: >-
+        Important Reminder:
+        This clinical policy has been developed by experienced and licensed health care professionals based on current standards of medical practice, peer-reviewed literature, regulatory approvals, evidence-based guidelines, and expert opinions. It is not intended to dictate how providers practice medicine nor does it guarantee outcomes. Providers must exercise their own professional judgment when delivering care. Unauthorized copying, distribution, or alteration of this policy is strictly prohibited.

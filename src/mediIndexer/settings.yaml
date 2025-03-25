@@ -64,7 +64,7 @@ skills:
         target_name: "vector"
   index_projections:
     selectors:
-      - target_index_name: "ai-policies-index"
+      - target_index_name: "clinical-policies-index"
         parent_key_field_name: "parent_id"
         source_context: "/document/normalized_images/*/pages/*"
         mappings:
