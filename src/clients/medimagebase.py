@@ -11,7 +11,7 @@ from src.preprocessor.file_types import get_filetype
 from src.preprocessor.image_preprocessor import ImagePreprocessor
 from src.extractors.image_data_extractor import ImageReader
 from src.utils.io import numpy_to_image_bytearray
-from src.aml.azureml_managers import WorkspaceEndpointManager
+# from src.aml.azureml_managers import WorkspaceEndpointManager
 
 def read_file_to_bytes(file):
     with open(file, "rb") as f:

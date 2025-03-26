@@ -49,3 +49,4 @@ scikit-learn==1.6.1
 ratelimit==2.2.1
 libmagic==1.0.0
 matplotlib==3.5.1
+numpy==1.26.4
