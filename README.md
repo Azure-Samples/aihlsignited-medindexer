@@ -2,6 +2,8 @@
 
 # MedIndexer: AI-Powered Clinical Knowledge Base Framework  
 
+> This project is **part of the [HLS Ignited Program](https://github.com/microsoft/aihlsIgnited)**, which focuses on hands-on projects that show how AI is transforming the healthcare industry. In this project, we empower healthcare providers and payor organizations to build **AI-driven clinical knowledge bases** using **Azure AI Search**. Please visit the program page to explore the full program and its projects.
+
 <img src="utils/images/medIndexer.png" align="right" height="200" style="float:right; height:200px;"/>
 
 **MedIndexer** is a **indexing framework** designed for the **automated creation of structured knowledge bases** from clinical and policy-related documents. It enables the transformation of **clinical notes and policy documentation** into a **schema-driven, searchable format**, allowing your applications to leverage **state-of-the-art retrieval methodologies**, including **vector search and re-ranking**, seamlessly integrated with **Azure AI Search**. By applying a **well-defined schema** for data organization and vectorizing the data into a **higher-dimensional representation**, MedIndexer empowers AI applications to retrieve **more precise and context-aware information**.
