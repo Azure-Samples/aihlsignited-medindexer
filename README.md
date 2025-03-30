@@ -16,7 +16,7 @@
 In the era of AI, the rise of AI copilots and assistants has led to a shift in how we access knowledge. But retrieving clinical data that lives in disparate formats is no trivial task. Building retrieval systems takes effort—and **how you structure your knowledge store matters**. It’s a cyclic, iterative, and constantly evolving process. That’s why we believe in leveraging **enterprise-ready retrieval platforms** like **Azure AI Search**—designed to power intelligent search experiences across structured and unstructured data. It serves as the foundation for building advanced retrieval systems in healthcare.
 
 <div align="center">
-  <img src="utils\images\The need of Knoledge.png" alt="Solution Diagram" style="max-width:80%; border-radius:8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <img src="utils/images/The need of Knoledge.png" alt="Solution Diagram" width="80%" />
   <p style="font-size: smaller; font-family: cursive; font-style: italic; margin-top: 8px;">
     The need of Knowledge Stores.
   </p>
