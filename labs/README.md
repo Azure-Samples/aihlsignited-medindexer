@@ -1,24 +1,55 @@
-#### **🧪 Azure AI Search Labs**
+## **🧪 Azure AI Search Labs**
 
-Welcome to the Azure AI Search Labs! These hands-on labs are designed to guide you through the process of building, configuring, and optimizing Azure AI Search for various use cases. Whether you're new to Azure AI Search or looking to deepen your expertise, these labs provide step-by-step instructions and practical examples.
+Welcome to the **Azure AI Search Labs**! These hands-on exercises are designed to help you build, configure, and optimize Azure AI Search across various healthcare and enterprise use cases. Whether you're just starting out or looking to deepen your expertise, each lab offers step-by-step guidance, real-world datasets, and practical techniques that mirror production-grade retrieval systems.
 
-+ **🧪 Building Your Azure AI Search Index**  
-   - [🧾 Notebook - Building Single Agents with Azure AI Agent Service](labs/lab-01-creation-indexes.ipynb): Learn how to create and configure an Azure AI Search index to enable intelligent search capabilities for your applications. This lab covers the basics of setting up an index, defining schemas, and preparing your data for search.
+---
 
-+ **🧪 Indexing Data into Azure AI Search**  
-   - [🧾 Notebook - Ingest and Index Clinical Data](labs/lab-02-indexing.ipynb): Understand how to preprocess, structure, and index clinical data into Azure AI Search using schema-first principles. This lab focuses on data ingestion pipelines and best practices for indexing unstructured data.
+### **🛠️ Lab Modules Overview**
 
-+ **🧪 Retrieval Methods for Azure AI Search**  
-   - [🧾 Notebook - Exploring Vector Search and Hybrid Retrieval](labs/lab-03-retrieval.ipynb): Dive into advanced retrieval techniques such as vector search, hybrid retrieval, and reranking. Learn how to enhance the accuracy and relevance of search results by leveraging semantic search capabilities.
+Each lab focuses on a specific part of the search lifecycle—from index creation to evaluation—enabling you to master both fundamentals and advanced capabilities of Azure AI Search.
 
-+ **🧪 Evaluation Methods for Azure AI Search**  
-   - [🧾 Notebook - Evaluating Search Quality and Relevance](labs/lab-04-evaluation.ipynb): Learn how to evaluate the performance of your search index using relevance metrics and ground truth datasets. This lab provides insights into measuring and improving the quality of your search results.
+#### **🧪 Lab 01: Building Your Azure AI Search Index**
+
+- **[🧾 Notebook – Creating Indexes with Azure AI Agent Service](lab-01-creation-indexes.ipynb)**  
+  Learn how to design and configure your search index. This includes:
+  - Creating a new index from scratch
+  - Defining schema fields for structured and unstructured data
+  - Enabling filtering, faceting, and sorting
+  - Understanding indexer vs push model architectures
+
+#### **🧪 Lab 02: Indexing Clinical Data**
+
+- **[🧾 Notebook – Ingesting and Indexing Clinical Data](lab-02-indexing.ipynb)**  
+  Dive into the data ingestion pipeline. This lab covers:
+  - Preprocessing PDF, text, and image-based datasets
+  - Applying schema-first indexing principles
+  - Configuring skillsets and enrichments
+  - Automating data flow from Azure Blob Storage to Azure AI Search
+
+#### **🧪 Lab 03: Retrieval Methods**
+
+- **[🧾 Notebook – Exploring Vector Search and Hybrid Retrieval](lab-03-retrieval.ipynb)**  
+  Learn to implement modern retrieval techniques, including:
+  - Full-text search and lexical scoring
+  - Vector similarity search using Azure OpenAI embeddings
+  - Hybrid search (combining lexical + vector)
+  - Reranking with semantic scoring
+
+#### **🧪 Lab 04: Evaluating Search Quality**
+
+- **[🧾 Notebook – Evaluating Search Quality and Relevance](lab-04-evaluation.ipynb)**  
+  Assess the performance and relevance of your search results:
+  - Define ground truth datasets for evaluation
+  - Use precision, recall, and NDCG metrics
+  - Analyze false positives/negatives
+  - Tune your index and reranker configuration based on feedback
 
 ### **📚 Additional Notes**
 
-- Each lab is designed to be self-contained, allowing you to focus on specific aspects of Azure AI Search.
-- Make sure to follow the prerequisites mentioned in each notebook to ensure a smooth experience.
+- 💡 **Self-Contained Labs**: Each lab is modular and self-contained, allowing you to explore one concept at a time or run them in sequence for a complete experience.
+- ⚙️ **Prerequisites**: Ensure you've met the requirements listed at the beginning of each notebook—such as Azure resource setup, authentication, and dependencies.
 
-### **🚀 Next Steps**
+### **🚀 What’s Next?**
 
-Once you’ve completed these labs, explore the **Use Cases** section in the main repository to see how these concepts can be applied to real-world scenarios, such as creating knowledge stores for policies and X-ray images.
+Once you’ve completed the labs, head over to the [**🏥 Use Cases**](../usecases/README.md) section to see how these foundational concepts are applied in real-world healthcare workflows. You’ll explore how to build policy knowledge stores, enable X-ray similarity search, and create intelligent retrieval pipelines that drive clinical impact.
+

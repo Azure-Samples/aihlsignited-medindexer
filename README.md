@@ -15,7 +15,12 @@
 
 In the era of AI, the rise of AI copilots and assistants has led to a shift in how we access knowledge. But retrieving clinical data that lives in disparate formats is no trivial task. Building retrieval systems takes effort—and **how you structure your knowledge store matters**. It’s a cyclic, iterative, and constantly evolving process. That’s why we believe in leveraging **enterprise-ready retrieval platforms** like **Azure AI Search**—designed to power intelligent search experiences across structured and unstructured data. It serves as the foundation for building advanced retrieval systems in healthcare.
 
-<img src="utils\images\The need of Knoledge.png" style="display: block; margin: 20px auto; border-radius: 15px; max-width: 80%; height: auto;" alt="The need of Knowledge Stores" />
+<div align="center">
+  <img src="utils\images\The need of Knoledge.png" alt="Solution Diagram" style="max-width:80%; border-radius:8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+  <p style="font-size: smaller; font-family: cursive; font-style: italic; margin-top: 8px;">
+    The need of Knowledge Stores.
+  </p>
+</div>
 
 However, implementing **Azure AI Search** alone is not enough. Mastering its capabilities and applying well-defined patterns can significantly enhance your ability to address repetitive tasks and complex retrieval scenarios. This project aims to **accelerate your ability to transform raw clinical data into high-fidelity, high-value knowledge structures** that can power your next-generation healthcare applications.
 
@@ -23,14 +28,14 @@ However, implementing **Azure AI Search** alone is not enough. Mastering its cap
 
 If you are new to Azure AI Search, follow the labs step-by-step to gain an in-depth understanding of the technology. For AI engineers already familiar with these concepts, you can skip ahead to the use case sections, which demonstrate how to create knowledge stores for policies and X-ray images.
 
-#### **🧪 Azure AI Search Labs**
+#### 🧪 [Azure AI Search Labs](labs\README.md)
 
 + 🧪 **Building Your Azure AI Search Index**: [🧾 Notebook - Building Single Agents with Azure AI Agent Service](labs\lab-01-creation-indexes.ipynb) Learn how to create and configure an Azure AI Search index to enable intelligent search capabilities for your applications.
 - 🧪 **Indexing Data into Azure AI Search**: [🧾 Notebook - Ingest and Index Clinical Data](labs\lab-02-indexing.ipynb) Understand how to ingest, preprocess, and index clinical data into Azure AI Search using schema-first principles.
 + 🧪 **Retrieval Methods for Azure AI Search**: [🧾 Notebook - Exploring Vector Search and Hybrid Retrieval](labs\lab-03-retrieval.ipynb) Dive into retrieval techniques such as vector search, hybrid retrieval, and reranking to enhance the accuracy and relevance of search results.
 - 🧪 **Evaluation Methods for Azure AI Search**: [🧾 Notebook - Evaluating Search Quality and Relevance](labs\lab-04-evaluation.ipynb) Learn how to evaluate the performance of your search index using relevance metrics and ground truth datasets to ensure high-quality search results.
 
-#### **🏥 [Use Cases](usecases\README.md)**
+#### 🏥 [Use Cases](usecases\README.md)
 
 + **📝 Creating Coded Policy Knowledge Stores**: [🧾 Notebook - Creating Coded Policies Knowledge Stores](usecases/usecase-01-creating-coded-policies-knowledge-stores.ipynb) Transform payer policies into **machine-readable formats**. 
     This use case includes:  
