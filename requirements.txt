@@ -8,6 +8,7 @@ langchain-core
 # AI and OpenAI integration
 openai==1.52.0
 tiktoken==0.8.0
+torch==2.6.0
 
 # Azure SDKs
 azure-identity==1.19.0
@@ -21,6 +22,7 @@ azure-ai-textanalytics==5.2.0
 azure-ai-evaluation==1.2.0
 azure-ai-inference[opentelemetry]==1.0.0b7
 azure-ai-projects==1.0.0b7
+azure-ai-ml==1.26.0
 
 # HTTPX fix for OpenAI
 httpx==0.27.2
@@ -37,3 +39,14 @@ opentelemetry-instrumentation-httpx==0.52b1
 rapidfuzz==3.12.2
 pytest==8.3.4
 
+# python helpers
+python-magic==0.4.27
+nibabel==5.3.2
+pydicom==3.0.1
+SimpleITK==2.4.1
+scikit-image==0.25.2
+scikit-learn==1.6.1
+ratelimit==2.2.1
+libmagic==1.0.0
+matplotlib==3.5.1
+numpy==1.26.4
