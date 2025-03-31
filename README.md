@@ -27,7 +27,7 @@ However, implementing **Azure AI Search** alone is not enough. Mastering its cap
 
 ### 🚀 How to Get Started
 
-If you are new to Azure AI Search, follow the labs step-by-step to gain an in-depth understanding of the technology. For AI engineers already familiar with these concepts, you can skip ahead to the use case sections, which demonstrate how to create knowledge stores for policies and X-ray images.
+If you're new to Azure AI Search, start with the step-by-step labs to build a solid foundation in the technology. Experienced AI engineers can jump straight to the use case sections, which showcase how to create **Coded Policy Knowledge Stores** and **X-ray Knowledge Stores** for real-world applications.
 
 #### 🧪 [Azure AI Search Labs](labs\README.md)
 
