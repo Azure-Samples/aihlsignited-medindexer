@@ -3,6 +3,7 @@ import io
 import os
 import tempfile
 import warnings
+from datetime import datetime, timedelta
 from io import BytesIO
 import glob
 import re
@@ -16,6 +17,7 @@ import requests
 import SimpleITK as sitk
 import torch
 from PIL import Image
+from azure.storage.blob import ContentSettings, BlobClient, generate_blob_sas, BlobSasPermissions
 
 from tqdm import tqdm
 from collections.abc import Iterable
@@ -204,3 +206,46 @@ def convert_volume_to_slices(volume, output_dir, filename_prefix):
             .transpose(Image.FLIP_LEFT_RIGHT)
         )
         slice_img.save(os.path.join(output_dir, f"{filename_prefix}_slice{i}.png"))
+
+def upload_dicom_to_blob(file_path: str, container_client, folder: str = "raw") -> str:
+    """
+    Uploads a file to Blob Storage into a specified folder.
+    If the blob already exists, the function returns its URL without re-uploading.
+    """
+    file_name = os.path.basename(file_path)
+    # Create a blob name that places the file under the "raw" folder
+    blob_name = f"{folder}/{file_name}"
+    blob_client = container_client.get_blob_client(blob_name)
+
+    # Check if the blob already exists; if so, skip upload
+    if blob_client.exists():
+        return blob_client.url
+
+    with open(file_path, "rb") as data:
+        blob_client.upload_blob(
+            data,
+            overwrite=True,
+            content_settings=ContentSettings(content_type="application/dicom")
+        )
+    return blob_client.url
+
+
+def get_blob_sas_url(blob_url: str, expiry_hours: int = 1) -> str:
+    """
+    Given a blob URL, generate and return a SAS URL that appends a read-only token.
+    The account key must be set in the environment variable 'AZURE_STORAGE_ACCOUNT_KEY'.
+    """
+    account_key = os.environ.get("AZURE_STORAGE_ACCOUNT_KEY")
+    if not account_key:
+        raise ValueError("AZURE_STORAGE_ACCOUNT_KEY environment variable is not set.")
+
+    blob_client = BlobClient.from_blob_url(blob_url)
+    sas_token = generate_blob_sas(
+        account_name=blob_client.account_name,
+        container_name=blob_client.container_name,
+        blob_name=blob_client.blob_name,
+        account_key=account_key,
+        permission=BlobSasPermissions(read=True),
+        expiry=datetime.utcnow() + timedelta(hours=expiry_hours)
+    )
+    return blob_client.url + "?" + sas_token

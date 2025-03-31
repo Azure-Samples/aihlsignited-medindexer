@@ -1,5 +1,7 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
+import json
+import re
 
 import numpy as np
 import SimpleITK as sitk
@@ -127,3 +129,18 @@ def extract_instance_masks(mask, threshold=None):
             ins_mask_filtered[ins_mask == i] = 0
 
     return ins_mask_filtered
+
+def normalize_document_key(key: str) -> str:
+    """
+    Normalize a document key by replacing any character not in the allowed set
+    (letters, digits, underscore, dash, or equal sign) with an underscore.
+    """
+    # Allowed characters: A-Z, a-z, 0-9, underscore, dash, equal sign.
+    normalized_key = re.sub(r"[^A-Za-z0-9_\-=]", "_", key)
+    return normalized_key
+
+def extract_nonclinical_description(model_output: dict):
+    nested_output_str = model_output['output']
+    nested_list = json.loads(nested_output_str)
+    concatenated_string = " ".join(item[0] for item in nested_list)
+    return concatenated_string

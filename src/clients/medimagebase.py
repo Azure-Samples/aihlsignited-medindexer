@@ -166,10 +166,10 @@ class MedImageBaseClient(ABC):
 
     def _read_and_encode_choice(self, input):
         if isinstance(input, dict):
-            return self._read_and_encode_image(**input)
-        return self._read_and_encode_image(input)
+            return self.read_and_encode_image(**input)
+        return self.read_and_encode_image(input)
 
-    def _read_and_encode_image(
+    def read_and_encode_image(
         self, image, normalization_overrides=None, transform_overrides=None
     ):
         image = self.read_and_normalize_image(
