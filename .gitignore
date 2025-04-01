@@ -170,4 +170,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-/evals/benchmark/medindexer/archive/
+evals/benchmark/medindexer/archive/
