@@ -188,3 +188,73 @@ class PromptManager:
             query=query,
             SearchResults=search_results,
         )
+
+    def create_prompt_query_generation_eval_system(
+        self
+    ) -> str:
+        """
+        Create a prompt for evaluating the query generation
+        Args:
+            diagnosis:
+            medication:
+
+        Returns:
+
+        """
+        return self.get_prompt(
+            "query_generation_eval_system_prompt.jinja",
+        )
+
+    def create_prompt_query_generation_eval_user(
+        self, diagnosis: str, medication: str
+    ) -> str:
+        """
+        Create a prompt for evaluating the query generation
+        Args:
+            diagnosis:
+            medication:
+
+        Returns:
+
+        """
+        return self.get_prompt(
+            "query_generation_eval_user_prompt.jinja",
+            diagnosis=diagnosis,
+            medication=medication,
+        )
+
+    def create_prompt_query_relevance_eval_system(
+        self
+    ) -> str:
+        """
+        Create a prompt for evaluating the query generation
+        Args:
+            diagnosis:
+            medication:
+
+        Returns:
+
+        """
+        return self.get_prompt(
+            "query_relevance_eval_system_prompt.jinja",
+        )
+
+    def create_prompt_query_relevance_eval_user(
+        self, corpus: str, query_id: str, query: str, title: str
+    ) -> str:
+        """
+        Create a prompt for evaluating the query generation
+        Args:
+            diagnosis:
+            medication:
+
+        Returns:
+
+        """
+        return self.get_prompt(
+            "query_relevance_eval_user_prompt.jinja",
+            corpus=corpus,
+            query_id=query_id,
+            query=query,
+            title=title
+        )

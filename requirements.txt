@@ -38,6 +38,7 @@ opentelemetry-instrumentation-httpx==0.52b1
 # evaluators
 rapidfuzz==3.12.2
 pytest==8.3.4
+beir==2.1.0
 
 # python helpers
 python-magic==0.4.27
