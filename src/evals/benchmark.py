@@ -156,15 +156,31 @@ class BenchmarkOrchestrator:
                 diagnosis=diagnosis, medication=medication
             )
             system_prompt = self.prompt_manager.create_prompt_query_generation_eval_system()
-            query_response = await self.aoai_client.generate_chat_response(
-                query=user_prompt,
-                system_message_content=system_prompt,
-                image_paths=[],  # No images are needed for this prompt.
-                stream=False,
-                response_format="text",
-            )
-            queries = json.loads(query_response['response'])['queries']
-            # Merge the original use case fields with the generated query.
+
+            max_retries = 3
+            retry_delay = 1  # seconds
+            for attempt in range(max_retries):
+                try:
+                    query_response = await self.aoai_client.generate_chat_response(
+                        query=user_prompt,
+                        system_message_content=system_prompt,
+                        image_paths=[],  # No images are needed for this prompt.
+                        stream=False,
+                        response_format="text",
+                    )
+                    # Attempt to parse the response JSON.
+                    queries = json.loads(query_response['response'])['queries']
+                    break
+                except json.JSONDecodeError as e:
+                    print(f"Attempt {attempt + 1} - JSON decode error in query generation for diagnosis: {diagnosis}, medication: {medication}: {e}")
+                    if attempt < max_retries - 1:
+                        await asyncio.sleep(retry_delay)
+                    else:
+                        print("Max retries reached for query generation. Skipping this use case.")
+                        queries = []
+                        break
+
+            # Merge the original use case fields with the generated queries.
             for query in queries:
                 query_object = {
                     "diagnosis": diagnosis,
@@ -381,10 +397,14 @@ class BenchmarkOrchestrator:
                 continue
         return ranking
 
-    def generate_rankings(self):
+    def generate_rankings(self, run_rankings=True):
         """
         Generate rankings for each query in various modes and save them as JSONL files.
         """
+        if not run_rankings:
+            print("Rankings generation is disabled (run_rankings=False).")
+            return
+
         corpus_path = os.path.join(self.root, self.dataset_dir, "corpus.jsonl")
         queries_path = os.path.join(self.root, self.dataset_dir, "queries.jsonl")
 
