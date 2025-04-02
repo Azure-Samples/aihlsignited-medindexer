@@ -70,7 +70,7 @@
 
 # Tasks
 ## Please provide your assessment Score for the CORPUS entries in relation to the QUERY based on the Definitions above. Your output should include the following information:
-- **thought_chain**: To improve the reasoning process, think step by step and include a step-by-step explanation of your thought process as you analyze the data based on the definitions. Keep it brief and start your ThoughtChain with "Let's think step by step:".
+- **thought_chain**: To improve the reasoning process, think step by step and include a step-by-step explanation of your thought process as you analyze the data based on the definitions. Keep it brief and start your ThoughtChain with "Let's think step by step:" and limit your reasoning to no more than 1000 characters.
 - **explanation**: a very short explanation of why you think the input Data should get that Score.
 - **relevant_score**: based on your previous analysis, provide your Score. The Score you give MUST be a integer score (i.e., "1", "2"...) based on the levels of the definitions.
 - **document**: the ID of the document ID
@@ -88,9 +88,9 @@
     #### CORPUS:
 
     [
-      {"id": "d1", "title": "001.pdf", "chunk": "guidelines for Crohn's disease and Adalimumab are"},
-      {"id": "d2", "title": "001.pdf", "chunk": "noted below. In cases where the approval is authorized"},
-      {"id": "d3", "title": "001.pdf", "chunk": "10. Behcet's Disease. Approve for the duration noted"}
+      {"id": "d1", "chunk": "guidelines for Crohn's disease and Adalimumab are"},
+      {"id": "d2", "chunk": "noted below. In cases where the approval is authorized"},
+      {"id": "d3", "chunk": "10. Behcet's Disease. Approve for the duration noted"}
     ]
 
     #### QUERY:
