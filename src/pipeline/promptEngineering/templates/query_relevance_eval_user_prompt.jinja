@@ -1,35 +1,91 @@
-## Role:
-You are a Prior Authorization Qrel Judge. Your job is to evaluate the relevance of every document in a corpus with respect to a given prior authorization query.
+# Definition
+**Relevance** refers to how effectively a response addresses a question. It assesses the accuracy, completeness, and direct relevance of the response based solely on the given information.
 
-## Task:
-Given a corpus of documents, and a query with the following details:
-- Query ID
-- Query Text
-- Title
+# Ratings
+## [Relevance: 1] (Irrelevant Response)
+**Definition:** The response is unrelated to the question. It provides information that is off-topic and does not attempt to address the question posed.
 
-Your task is to determine the relevance of each document in the corpus to the query. Examine each document in the corpus and decide if it is relevant to the query and can be used to address the topic in a conversation.
+**Examples:**
+  **Query:** What is the team preparing for?
+  **Response:** I went grocery shopping yesterday evening.
 
-For every document, output a qrel entry in JSON format with the following keys:
+  **Query:** When will the company's new product line launch?
+  **Response:** International travel can be very rewarding and educational.
 
-- "query": the query identifier (for example, "q1")
-- "document": the document's id (for example, "d1")
-- "relevant": 1 if the document is relevant, 0 if it is not. If the query title does not match the title of the corpus, automatically assume 0 and is not relevant.
-- "relevant_score": a relevance score for how relevant you think the query is to the value in the chunk field, on a scale of 0 to 100.
+## [Relevance: 2] (Incorrect Response)
+**Definition:** The response attempts to address the question but includes incorrect information. It provides a response that is factually wrong based on the provided information.
 
-## Instructions:
-- Use the query details to assess relevance.
-- Evaluate every document in the corpus.
-- Generate your answer as a JSON array of qrel entries, with each entry evaluating the query and query Id for relevance to the document.
-- Do not include any formatting characters such as triple backticks or any other non-JSON characters in your output.
-- Your output must be valid JSON containing only the array of objects uniquely representing the representations of the query, queryId, and corpus of documents included.
-- You should only output the generated relevance entries.
-- Generate a relevance score for how relevant you think the query is to the value in the chunk field.
+**Examples:**
+  **Query:** When was the merger between the two firms finalized?
+  **Response:** The merger was finalized on April 10th.
+
+  **Query:** Where and when will the solar eclipse be visible?
+  **Response:** The solar eclipse will be visible in Asia on December 14th.
+
+## [Relevance: 3] (Incomplete Response)
+**Definition:** The response addresses the question but omits key details necessary for a full understanding. It provides a partial response that lacks essential information.
+
+**Examples:**
+  **Query:** What type of food does the new restaurant offer?
+  **Response:** The restaurant offers Italian food like pasta.
+
+  **Query:** What topics will the conference cover?
+  **Response:** The conference will cover renewable energy and climate change.
+
+## [Relevance: 4] (Complete Response)
+**Definition:** The response fully addresses the question with accurate and complete information. It includes all essential details required for a comprehensive understanding, without adding any extraneous information.
+
+**Examples:**
+  **Query:** What type of food does the new restaurant offer?
+  **Response:** The new restaurant offers Italian cuisine, featuring dishes like pasta, pizza, and risotto.
+
+  **Query:** What topics will the conference cover?
+  **Response:** The conference will cover renewable energy, climate change, and sustainability practices.
+
+## [Relevance: 5] (Comprehensive Response with Insights)
+**Definition:** The response not only fully and accurately addresses the question but also includes additional relevant insights or elaboration. It may explain the significance, implications, or provide minor inferences that enhance understanding.
+
+**Examples:**
+  **Query:** What type of food does the new restaurant offer?
+  **Response:** The new restaurant offers Italian cuisine, featuring dishes like pasta, pizza, and risotto, aiming to provide customers with an authentic Italian dining experience.
+
+  **Query:** What topics will the conference cover?
+  **Response:** The conference will cover renewable energy, climate change, and sustainability practices, bringing together global experts to discuss these critical issues.
+
+# Data
+
+## Please assess the relevance of the given **CORPUS** entries to the **QUERY** based on the definitions provided above. You will evaluate each entry in the **CORPUS** based on how well it addresses the **QUERY**. Your evaluation should be guided by the definitions and examples provided.
+
+#### CORPUS:
+
+{{ corpus }}
+
+#### QUERY:
+
+{{ query }}
+
+#### QUERY ID:
+
+{{ query_id }}
+
+# Tasks
+## Please provide your assessment Score for the CORPUS entries in relation to the QUERY based on the Definitions above. Your output should include the following information:
+- **thought_chain**: To improve the reasoning process, think step by step and include a step-by-step explanation of your thought process as you analyze the data based on the definitions. Keep it brief and start your ThoughtChain with "Let's think step by step:".
+- **explanation**: a very short explanation of why you think the input Data should get that Score.
+- **relevant_score**: based on your previous analysis, provide your Score. The Score you give MUST be a integer score (i.e., "1", "2"...) based on the levels of the definitions.
+- **document**: the ID of the document ID
+- **query**: the ID of the query ID
+- **relevant**: relevant based on the score you give, if 3 or above you can score it as relevant
+
+## Please provide your answers for each query on the JSON entity you generate per query. Refer to the example below.
+
+# Output
 
 ## Example:
 
-Input:
+### Input:
 
-    Corpus:
+    #### CORPUS:
 
     [
       {"id": "d1", "title": "001.pdf", "chunk": "guidelines for Crohn's disease and Adalimumab are"},
@@ -37,42 +93,18 @@ Input:
       {"id": "d3", "title": "001.pdf", "chunk": "10. Behcet's Disease. Approve for the duration noted"}
     ]
 
-    Query ID:
-
-    q1
-
-    Query:
+    #### QUERY:
 
     Crohn's disease Adalimumab prior authorization criteria
 
-    Title:
+    #### QUERY ID:
 
-    001.pdf
+    q1
 
-Output:
+### Output (make sure the list object is completely JSON formatted and compliant with JSON loaders):
 
     [
-      {"query": "q1", "document": "d1", "relevant": 1, "relevant_score" : 98.2},
-      {"query": "q1", "document": "d2", "relevant": 0, "relevant_score" : ...},
-      {"query": "q1", "document": "d3", "relevant": 0, "relevant_score" : ...}
+      {"query": "q1", "document": "d1", "relevant": 1, "relevant_score" : 5, "thought_chain" : "..", "explanation" : ".."},
+      {"query": "q1", "document": "d2", "relevant": 0, "relevant_score" : 1, "thought_chain" : "..", "explanation" : ".."},
+      {"query": "q1", "document": "d3", "relevant": 0, "relevant_score" : 1, "thought_chain" : "..", "explanation" : ".."}
     ]
-
----
-
-Corpus:
-
-{{ corpus }}
-
-Query ID:
-
-{{ query_id }}
-
-Query:
-
-{{ query }}
-
-Now, generate the qrel entries valid JSON output:
-
-[
-    //add here the qrel entries
-]
