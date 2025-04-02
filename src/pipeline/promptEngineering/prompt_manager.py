@@ -192,15 +192,6 @@ class PromptManager:
     def create_prompt_query_generation_eval_system(
         self
     ) -> str:
-        """
-        Create a prompt for evaluating the query generation
-        Args:
-            diagnosis:
-            medication:
-
-        Returns:
-
-        """
         return self.get_prompt(
             "query_generation_eval_system_prompt.jinja",
         )
@@ -256,5 +247,4 @@ class PromptManager:
             corpus=corpus,
             query_id=query_id,
             query=query,
-            title=title
         )
