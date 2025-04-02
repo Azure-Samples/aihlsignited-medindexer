@@ -342,6 +342,157 @@ class AzureOpenAIManager:
             logger.error(f"Traceback: {traceback.format_exc()}")
             return None
 
+    async def generate_chat_response_no_history(
+            self,
+            query: str,
+            system_message_content: str = "You are an AI assistant that helps people find information. Please be precise, polite, and concise.",
+            temperature: float = 0.7,
+            max_tokens: int = 150,
+            seed: int = 42,
+            top_p: float = 1.0,
+            stream: bool = False,
+            tools: Optional[List[Dict[str, Any]]] = None,
+            tool_choice: Optional[Union[str, Dict[str, Any]]] = None,
+            response_format: Union[str, Dict[str, Any]] = "text",
+            image_paths: Optional[List[str]] = None,
+            image_bytes: Optional[List[bytes]] = None,
+            **kwargs,
+    ) -> Optional[Union[str, Dict[str, Any]]]:
+        """
+        Generates a chat response using Azure OpenAI without retaining any conversation history.
+
+        :param query: The latest user query.
+        :param system_message_content: The system message to prime the model.
+        :param temperature: Controls randomness in the output.
+        :param max_tokens: Maximum number of tokens to generate.
+        :param seed: Random seed for deterministic output.
+        :param top_p: The cumulative probability cutoff for token selection.
+        :param stream: Whether to stream the response.
+        :param tools: A list of tools for the model to use.
+        :param tool_choice: Specifies which (if any) tool to call.
+        :param response_format: Specifies the format of the response.
+        :param image_paths: List of paths to images to include.
+        :param image_bytes: List of bytes of images to include.
+        :return: The generated response in the requested format.
+        """
+        try:
+            if tools is not None and tool_choice is None:
+                tool_choice = "auto"
+            else:
+                # Log provided tools and tool choice for debugging if necessary.
+                pass
+
+            # Create the system and user messages.
+            system_message = {"role": "system", "content": system_message_content}
+            user_message = {
+                "role": "user",
+                "content": [{"type": "text", "text": query}],
+            }
+
+            # Optionally add images if provided.
+            if image_bytes:
+                for image in image_bytes:
+                    encoded_image = base64.b64encode(image).decode("utf-8")
+                    user_message["content"].append({
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/jpeg;base64,{encoded_image}",
+                        },
+                    })
+            elif image_paths:
+                if isinstance(image_paths, str):
+                    image_paths = [image_paths]
+                for image_path in image_paths:
+                    try:
+                        with open(image_path, "rb") as image_file:
+                            encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
+                            mime_type, _ = mimetypes.guess_type(image_path)
+                            mime_type = mime_type or "application/octet-stream"
+                            user_message["content"].append({
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:{mime_type};base64,{encoded_image}",
+                                },
+                            })
+                    except Exception as e:
+                        logger.error(f"Error processing image {image_path}: {e}")
+
+            # Create a fresh messages list containing only the system and user messages.
+            messages_for_api = [system_message, user_message]
+            logger.info(
+                f"Sending request to Azure OpenAI at {time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))}"
+            )
+
+            # Determine response_format parameter.
+            if isinstance(response_format, str):
+                response_format_param = {"type": response_format}
+            elif isinstance(response_format, dict):
+                if response_format.get("type") == "json_schema":
+                    json_schema = response_format.get("json_schema", {})
+                    if json_schema.get("strict", False):
+                        if "name" not in json_schema or "schema" not in json_schema:
+                            raise ValueError(
+                                "When 'strict' is True, 'name' and 'schema' must be provided in 'json_schema'."
+                            )
+                response_format_param = response_format
+            else:
+                raise ValueError("Invalid response_format. Must be a string or a dictionary.")
+
+            # Call the Azure OpenAI client.
+            response = self.openai_client.chat.completions.create(
+                model=self.chat_model_name,
+                messages=messages_for_api,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                seed=seed,
+                top_p=top_p,
+                stream=stream,
+                tools=tools,
+                response_format=response_format_param,
+                tool_choice=tool_choice,
+                **kwargs,
+            )
+
+            # Process the response.
+            if stream:
+                response_content = ""
+                for event in response:
+                    if event.choices:
+                        event_text = event.choices[0].delta
+                        if event_text is None or event_text.content is None:
+                            continue
+                        print(event_text.content, end="", flush=True)
+                        response_content += event_text.content
+                        time.sleep(0.001)  # Minimal sleep to reduce latency
+            else:
+                response_content = response.choices[0].message.content
+
+            # If the desired format is a JSON object, try to parse it.
+            if isinstance(response_format, str) and response_format == "json_object":
+                try:
+                    parsed_response = json.loads(response_content)
+                    return {"response": parsed_response}
+                except json.JSONDecodeError as e:
+                    logger.error(f"Failed to parse response as JSON: {e}")
+                    return {"response": response_content}
+            else:
+                return {"response": response_content}
+
+        except openai.APIConnectionError as e:
+            logger.error("API Connection Error: The server could not be reached.")
+            logger.error(f"Error details: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            return None
+        except Exception as e:
+            error_message = str(e)
+            if "maximum context length" in error_message:
+                logger.warning("Context length exceeded. Consider reducing the input size.")
+                return "maximum context length"
+            logger.error("Unexpected error occurred during response generation.")
+            logger.error(f"Error details: {e}")
+            logger.error(f"Traceback: {traceback.format_exc()}")
+            return None
+
     async def generate_chat_response(
         self,
         query: str,
