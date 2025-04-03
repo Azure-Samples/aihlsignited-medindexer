@@ -31,10 +31,10 @@ If you're new to Azure AI Search, start with the step-by-step labs to build a so
 
 #### 🧪 [Azure AI Search Labs](labs/README.md)
 
-+ 🧪 **Building Your Azure AI Search Index**: [🧾 Notebook - Building Single Agents with Azure AI Agent Service](labs\lab-01-creation-indexes.ipynb) Learn how to create and configure an Azure AI Search index to enable intelligent search capabilities for your applications.
-- 🧪 **Indexing Data into Azure AI Search**: [🧾 Notebook - Ingest and Index Clinical Data](labs\lab-02-indexing.ipynb) Understand how to ingest, preprocess, and index clinical data into Azure AI Search using schema-first principles.
-+ 🧪 **Retrieval Methods for Azure AI Search**: [🧾 Notebook - Exploring Vector Search and Hybrid Retrieval](labs\lab-03-retrieval.ipynb) Dive into retrieval techniques such as vector search, hybrid retrieval, and reranking to enhance the accuracy and relevance of search results.
-- 🧪 **Evaluation Methods for Azure AI Search**: [🧾 Notebook - Evaluating Search Quality and Relevance](labs\lab-04-evaluation.ipynb) Learn how to evaluate the performance of your search index using relevance metrics and ground truth datasets to ensure high-quality search results.
++ 🧪 **Building Your Azure AI Search Index**: [🧾 Notebook - Building an Azure AI Search Index](labs/lab-01-creation-indexes.ipynb) Learn how to create and configure an Azure AI Search index to enable intelligent search capabilities for your applications.
+- 🧪 **Indexing Data into Azure AI Search**: [🧾 Notebook - Ingest and Index Clinical Data](labs/lab-02-indexing.ipynb) Understand how to ingest, preprocess, and index clinical data into Azure AI Search using schema-first principles.
++ 🧪 **Retrieval Methods for Azure AI Search**: [🧾 Notebook - Exploring Vector Search and Hybrid Retrieval](labs/lab-03-retrieval.ipynb) Dive into retrieval techniques such as vector search, hybrid retrieval, and reranking to enhance the accuracy and relevance of search results.
+- 🧪 **Evaluation Methods for Azure AI Search**: [🧾 Notebook - Evaluating Search Quality and Relevance](labs/lab-04-evaluation.ipynb) Learn how to evaluate the performance of your search index using relevance metrics and ground truth datasets to ensure high-quality search results.
 
 #### 🏥 [Use Cases](usecases/README.md)
 
