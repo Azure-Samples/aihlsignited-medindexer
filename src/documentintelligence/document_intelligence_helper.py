@@ -85,7 +85,6 @@ class AzureDocumentIntelligenceManager:
                 file_content = f.read()
                 analyze_request = AnalyzeDocumentRequest(bytes_source=file_content)
 
-        # ✅ Fixed: analyze_request must be the second positional argument
         poller = self.document_analysis_client.begin_analyze_document(
             model_type,
             analyze_request,

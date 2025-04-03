@@ -788,9 +788,7 @@ class AzureOpenAIManager:
                 model=model_name or self.embedding_model_name,
                 **kwargs,
             )
-
-            embedding = response.model_dump_json(indent=2)
-            return embedding
+            return response
         except openai.APIConnectionError as e:
             logger.error("API Connection Error: The server could not be reached.")
             logger.error(f"Error details: {e}")
